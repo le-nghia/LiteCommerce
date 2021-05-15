@@ -1,0 +1,67 @@
+﻿@model LiteCommerce.DomainModels.Product
+@{
+    ViewBag.Title = "Bổ sung mặt hàng";
+}
+
+<form method="post" action="~/Product/Save">
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="from-group">
+                <label>Tên hàng: </label>
+                @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+                @Html.ValidationMessage("a", new { @class = "text-red" })
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="from-group">
+                <label>Đơn vị tính: </label>
+                @Html.TextBoxFor(m => m.Unit, new { @class = "form-control" })
+                @Html.ValidationMessage("b", new { @class = "text-red" })
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="from-group">
+                <label>Giá hàng: </label>
+                @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="from-group">
+                <label>Ảnh: </label>
+                @Html.TextBoxFor(m => m.Photo, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="from-group">
+                <label>Mã hàng: </label>
+                @Html.TextBoxFor(m => m.CategoryID, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="from-group">
+                <label>Mã nhà cung cấp: </label>
+                @Html.TextBoxFor(m => m.SupplierID, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Lưu dữ liệu
+            </button>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="~/Product/Index" class="btn btn-warning">
+                <i class="fa fa-window-close"></i> Bỏ qua
+            </a>
+        </div>
+    </div>
+</form>
+

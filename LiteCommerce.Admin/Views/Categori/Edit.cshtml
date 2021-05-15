@@ -1,0 +1,42 @@
+﻿
+@model LiteCommerce.DomainModels.Categori
+
+@{ 
+
+}
+<form method="post" action="~/Categori/Save">
+
+    @Html.HiddenFor(m => m.CategoryID)
+
+    <div class="form-group">
+        <label>Tên loại hàng:</label>
+        <input type="text" class="form-control" name="CategoryName" id="CategoryName" autofocus value="@Model.CategoryName">
+        @Html.ValidationMessage("a", new { @class = "text-red"})
+    </div>
+
+    <div class="form-group">
+        <label>Mô tả:</label>
+        <input type="text" class="form-control" name="Description" id="Description" value="@Model.Description">
+        @Html.ValidationMessage("b", new { @class = "text-red" })
+    </div>
+
+    <div class="form-group">
+        <label>ID loại hàng cha:</label>
+        <input type="text" class="form-control" name="ParentCategoryId" id="ParentCategoryId" value="@Model.ParentCategoryId">
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Lưu dữ liệu
+            </button>
+
+            <a href="~/Categori/Index" class="btn btn-warning">
+                <i class="fa fa-window-close"></i> Bỏ qua
+            </a>
+        </div>
+    </div>
+</form>

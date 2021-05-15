@@ -1,0 +1,49 @@
+﻿
+@model LiteCommerce.DomainModels.ProductAttribute
+@{
+    ViewBag.Title = "Bổ Sung Thuộc tính Attribute";
+}
+
+<form method="post" action="~/Product/SaveAttribute">
+
+    @Html.HiddenFor(m => m.AttributeID)
+
+    <div class="form-group col-md-6">
+        <label>Mã hàng:</label>
+        @Html.TextBoxFor(m => m.ProductID, new { @class = "form-control" })
+        
+    </div>
+    <div class="form-group col-md-6">
+        <label>Tên thuộc tính:</label>
+        @Html.TextBoxFor(m => m.AttributeName, new { @class = "form-control" })
+        @Html.ValidationMessage("a", new { @class = "text-red" })
+    </div>
+    <div class="form-group col-md-6">
+        <label>Giá trị thuộc tính:</label>
+        @*<input type="text" class="form-control" name="Phone" id="Phone" value="@Model.Phone">*@
+        @Html.TextBoxFor(m => m.AttributeValue, new { @class = "form-control" })
+        @Html.ValidationMessage("b", new { @class = "text-red" })
+    </div>
+    <div class="form-group col-md-6">
+        <label>Hiển thị:</label>
+        @*<input type="text" class="form-control" name="Phone" id="Phone" value="@Model.Phone">*@
+        @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control" })
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Lưu dữ liệu
+            </button>
+
+            <a href="~/Product/Edit/@Model.ProductID" class="btn btn-warning">
+                <i class="fa fa-window-close"></i> Bỏ qua
+            </a>
+        </div>
+
+    </div>
+</form>
