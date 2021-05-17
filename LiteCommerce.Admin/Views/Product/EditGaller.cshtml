@@ -2,12 +2,12 @@
 @model LiteCommerce.DomainModels.ProductGallery
 
 
-<form method="post" action="~/Product/Save">
+<form method="post" action="~/Product/SaveGaller">
 
     @Html.HiddenFor(m => m.GalleryID)
 
     <div class="form-group">
-
+        <label>Ảnh: </label>
         <img src="@Model.Photo" style="width: 20%; height: auto;" />
 
         @Html.TextBoxFor(m => m.Photo, new { @class = "form-control" })
@@ -24,19 +24,19 @@
             <label>Hiển thị:</label>
             @*<input type="text" class="form-control" name="Phone" id="Phone" value="@Model.Phone">*@
             @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control" })
-            @Html.ValidationMessage("b", new { @class = "text-red" })
+            
         </div>
         <div class="form-group col-md-6">
             <label>Giá trị:</label>
             @*<input type="text" class="form-control" name="Phone" id="Phone" value="@Model.Phone">*@
             @Html.TextBoxFor(m => m.IsHidden, new { @class = "form-control" })
-            @Html.ValidationMessage("b", new { @class = "text-red" })
+            
         </div>
         <div class="form-group col-md-6">
             <label>Mã hàng:</label>
             @*<input type="text" class="form-control" name="Phone" id="Phone" value="@Model.Phone">*@
             @Html.TextBoxFor(m => m.ProductID, new { @class = "form-control" })
-            @Html.ValidationMessage("b", new { @class = "text-red" })
+            
         </div>
     </div>
 

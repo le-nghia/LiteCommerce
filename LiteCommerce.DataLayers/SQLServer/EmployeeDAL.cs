@@ -39,6 +39,9 @@ namespace LiteCommerce.DataLayers.SQLServer
 	                                    @lastName, @firstName, @birthDate, @photo, @note, @email, @password
                                     );
                                     SELECT @@IDENTITY";
+
+                cmd.CommandType = CommandType.Text;
+
                 cmd.Parameters.AddWithValue("@lastName", data.LastName);
                 cmd.Parameters.AddWithValue("@firstName", data.FirstName);
                 cmd.Parameters.AddWithValue("@birthDate", data.BirthDate);
@@ -237,6 +240,7 @@ namespace LiteCommerce.DataLayers.SQLServer
 	                                    Password = @password
                                     WHERE EmployeeID = @employeeID;";
 
+                cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@employeeID", data.EmployeeID);
                 cmd.Parameters.AddWithValue("@lastName", data.LastName);
                 cmd.Parameters.AddWithValue("@firstName", data.FirstName);

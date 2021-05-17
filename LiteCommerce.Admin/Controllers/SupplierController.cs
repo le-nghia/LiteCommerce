@@ -68,7 +68,7 @@ namespace LiteCommerce.Admin.Controllers
 
             var model = DataService.GetSuppliers(id);
             if (model == null)
-                RedirectToAction("Index");
+                return RedirectToAction ("Index");
 
             return View(model);
         }
@@ -153,9 +153,9 @@ namespace LiteCommerce.Admin.Controllers
                 if (!ModelState.IsValid)
                 {
                     if (data.SupplierID == 0)
-                        ViewBag.Title = "Tau đố mi bổ sung được.";
+                        ViewBag.Title = "Không thể bổ sung được.";
                     else
-                        ViewBag.Title = "Hên là mi bổ sung đuọc rồi.";
+                        ViewBag.Title = "Bổ sung thành công.";
                     return View("Edit", data);
                 }
 

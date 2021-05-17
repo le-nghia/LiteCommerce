@@ -20,7 +20,14 @@ namespace LiteCommerce.Admin.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="supplier"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         public ActionResult List(int category = 0, int supplier = 0, string searchValue = "", int page=1)
         {
             try
@@ -56,33 +63,54 @@ namespace LiteCommerce.Admin.Controllers
                 return RedirectToAction("index");
             return View(model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Editproduct (int id)
         {
             ViewBag.Title = "Thay đổi thông tin mặt hàng";
 
             var model = ProductService.Get(id);
             if (model == null)
-                return RedirectToAction("index");
+                return RedirectToAction("Index");
             return View(model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult EditGaller(int id)
         {
             ViewBag.Title = "Thay đổi thuộc tính.";
 
             var model = ProductService.GetGallery(id);
             if (model == null)
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             return View(model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Editattributes(int id)
         {
             ViewBag.Title = "Thay đổi thuộc tính.";
 
             var model = ProductService.GetAttribute(id);
             if (model == null)
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             return View(model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="attributeIds"></param>
+        /// <returns></returns>
         public ActionResult DeleteAttrbutes(int id, long[] attributeIds)
         {
             if (attributeIds == null)
@@ -92,7 +120,12 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Edit", new { id });
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="galleryIds"></param>
+        /// <returns></returns>
         public ActionResult DeleteGaller(int id, long[] galleryIds)
         {
             if (galleryIds == null)
@@ -116,18 +149,28 @@ namespace LiteCommerce.Admin.Controllers
             };
             return View("Editproduct", model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Addattributes()
         {
             ViewBag.Title = "Bổ sung thuộc tính";
+            
             ProductAttribute model = new ProductAttribute()
             {
                 AttributeID = 0
             };
             return View("Editattributes", model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Addgalleries()
         {
             ViewBag.Title = "Bổ sung thuộc tính";
+
             ProductGallery model = new ProductGallery()
             {
                 GalleryID = 0
@@ -179,7 +222,7 @@ namespace LiteCommerce.Admin.Controllers
                         ViewBag.Title = "Tau đố mi bổ sung được.";
                     else
                         ViewBag.Title = "Hên là mi bổ sung đuọc rồi.";
-                    return View("Editproduct", data);
+                    return View("Edit", data);
                 }
                 if (data.ProductID == 0)
                 {
@@ -190,13 +233,18 @@ namespace LiteCommerce.Admin.Controllers
                     ProductService.Update(data);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit/" + data.ProductID);
             }
             catch
             {
                 return Content("Lỗi Rồi.");
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public ActionResult SaveAttribute(ProductAttribute data)
         {
             try
@@ -215,7 +263,7 @@ namespace LiteCommerce.Admin.Controllers
                         ViewBag.Title = "Hên là mi bổ sung đuọc rồi.";
                     return View("Editattributes", data);
                 }
-                if (data.ProductID == 0)
+                if (data.AttributeID == 0)
                 {
                     ProductService.AddAttribute(data);
                 }
@@ -224,7 +272,46 @@ namespace LiteCommerce.Admin.Controllers
                     ProductService.UpdateAttribute(data);
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit/" + data.ProductID);
+            }
+            catch
+            {
+                return Content("Lỗi Rồi.");
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public ActionResult SaveGaller(ProductGallery data)
+        {
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(data.Description))
+                    ModelState.AddModelError("b", "Vui lòng miêu tả.");
+                if (string.IsNullOrWhiteSpace(data.Photo))
+                    ModelState.AddModelError("a", "Vui lòng thêm ảnh.");
+
+                if (!ModelState.IsValid)
+                {
+                    if (data.GalleryID == 0)
+                        ViewBag.Title = "Tau đố mi bổ sung được.";
+                    else
+                        ViewBag.Title = "Hên là mi bổ sung đuọc rồi.";
+                    return View("EditGaller", data);
+                }
+                if (data.GalleryID == 0)
+                {
+                    ProductService.AddGallery(data);
+                }
+                else
+                {
+                    ProductService.UpdateGallery(data);
+                }
+
+                return RedirectToAction("Edit/" + data.ProductID);
             }
             catch
             {

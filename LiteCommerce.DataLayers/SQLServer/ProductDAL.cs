@@ -156,23 +156,25 @@ namespace LiteCommerce.DataLayers.SQLServer
         /// <returns></returns>
         public bool Delete(int productID)
         {
-            bool result = false;
+            
+                bool result = false;
 
-            using (SqlConnection cn = GetConnection())
-            {
-                SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandText = @"DELETE FROM Products  WHERE ProductID = @ProductID AND NOT EXISTS
+                using (SqlConnection cn = GetConnection())
+                {
+                    SqlCommand cmd = cn.CreateCommand();
+                    cmd.CommandText = @"DELETE FROM Products  WHERE ProductID = @ProductID AND NOT EXISTS
                                    ( 
                                     SELECT * FROM OrderDetails
                                     where ProductID = Products.ProductID and ProductID = Products.ProductID )";
 
-                cmd.Parameters.AddWithValue("@ProductID", productID);
+                    cmd.Parameters.AddWithValue("@ProductID", productID);
 
-                result = cmd.ExecuteNonQuery() > 0;
-                cn.Close();
-            }
+                    result = cmd.ExecuteNonQuery() > 0;
+                    cn.Close();
+                }
 
-            return result;
+                return result;
+                        
         }
         /// <summary>
         /// 
@@ -385,6 +387,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                                         WHERE   (@categoryID = 0 OR CategoryID = @categoryId)
                                             AND  (@supplierID = 0 OR SupplierID = @supplierId)
                                             AND (@searchValue = '' OR ProductName LIKE @searchValue)
+                                            
                                     ) AS s
                                     WHERE s.RowNumber BETWEEN (@page - 1)*@pageSize + 1 AND @page*@pageSize";
 
@@ -420,7 +423,6 @@ namespace LiteCommerce.DataLayers.SQLServer
             }
             return data;
         }
-        
         /// <summary>
         /// 
         /// </summary>
@@ -433,7 +435,7 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = "SELECT * FROM ProductAttributes WHERE ProductID = @productId";
-                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
                 cmd.Parameters.AddWithValue("@productId", productID);
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
@@ -540,13 +542,12 @@ namespace LiteCommerce.DataLayers.SQLServer
             using (SqlConnection cn = GetConnection())
             {
                 SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandText = @"UPDATE UpdateAttributes 
+                cmd.CommandText = @"UPDATE ProductAttributes 
                                         SET ProductID = @ProductID,
                                         AttributeName = @AttributeName,
                                         AttributeValue = @AttributeValue,
                                         DisplayOrder = @DisplayOrder
-                                        where AttributeID = @AttributeID;
-                                        ";
+                                        where AttributeID = @AttributeID;";
 
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("@AttributeID", data.AttributeID);
@@ -573,7 +574,7 @@ namespace LiteCommerce.DataLayers.SQLServer
             using (SqlConnection cn = GetConnection())
             {
                 SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandText = @"UPDATE UpdateGallery 
+                cmd.CommandText = @"UPDATE ProductGallery 
                                         SET ProductID = @ProductID,
                                         Photo = @Photo,
                                         Description = @Description,

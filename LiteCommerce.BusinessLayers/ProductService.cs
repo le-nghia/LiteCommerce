@@ -138,6 +138,7 @@ namespace LiteCommerce.BusinessLayers
                 ProductDB.DeleteAttribute(id);
             }
         }
+
         /// <summary>
         /// 
         /// </summary>

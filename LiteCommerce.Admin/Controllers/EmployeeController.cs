@@ -56,7 +56,7 @@ namespace LiteCommerce.Admin.Controllers
 
             var model = DataService.GetEmployee(id);
             if ( model == null )
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
 
             return View(model);
         }
@@ -91,7 +91,7 @@ namespace LiteCommerce.Admin.Controllers
             }
             else
             {
-                // Lấy thông tin của Supplier cần xóa.
+                // Lấy thông tin của Empplier cần xóa.
                 var del = DataService.GetEmployee(id);
                 if (del == null)
                     return RedirectToAction("Index");
@@ -132,9 +132,14 @@ namespace LiteCommerce.Admin.Controllers
                 }
 
                 if (data.EmployeeID == 0)
+                {
                     DataService.AddEmployee(data);
+                }
                 else
+                {
                     DataService.UpdateEmployee(data);
+                }
+                    
                 //return Json(data);
                 return RedirectToAction("Index");
             }

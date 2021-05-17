@@ -232,6 +232,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.Parameters.AddWithValue("@Phone", data.Phone);
 
                 result = cmd.ExecuteNonQuery() > 0;
+                cn.Close();
             }
             return result;
         }
