@@ -309,6 +309,7 @@ namespace LiteCommerce.DataLayers.SQLServer
 
             List<ProductAttribute> listAttributes = this.ListAttributes(productID);
             List<ProductGallery> listGallery = this.ListGalleries(productID);
+
             ProductEx data = new ProductEx()
             {
                 ProductID = product.ProductID,
@@ -379,15 +380,13 @@ namespace LiteCommerce.DataLayers.SQLServer
             using(SqlConnection cn = GetConnection())
             {
                 SqlCommand cmd = cn.CreateCommand();
-                cmd.CommandText= @"SELECT  *
-                                    FROM
+                cmd.CommandText= @"SELECT * FROM
                                     (
                                         SELECT  *, ROW_NUMBER() OVER(ORDER BY ProductName) AS RowNumber
                                         FROM    Products 
                                         WHERE   (@categoryID = 0 OR CategoryID = @categoryId)
                                             AND  (@supplierID = 0 OR SupplierID = @supplierId)
-                                            AND (@searchValue = '' OR ProductName LIKE @searchValue)
-                                            
+                                            AND (@searchValue = '' OR ProductName LIKE @searchValue)                                          
                                     ) AS s
                                     WHERE s.RowNumber BETWEEN (@page - 1)*@pageSize + 1 AND @page*@pageSize";
 

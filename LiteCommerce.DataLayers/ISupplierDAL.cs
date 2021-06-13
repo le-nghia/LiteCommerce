@@ -52,6 +52,7 @@ namespace LiteCommerce.DataLayers
         /// <param name="supplierID"></param>
         /// <returns></returns>
         bool Delete(int supplierID);
+        List<Supplier> ListOfNameSuppliers();
 
     }
 }

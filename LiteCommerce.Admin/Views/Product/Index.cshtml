@@ -1,4 +1,5 @@
-﻿
+﻿@model LiteCommerce.DomainModels.Product
+
 @{ ViewBag.Title = "Quản Lý Mặt Hàng";
 }
 <!-- Form để tìm kiếm -->
@@ -7,23 +8,13 @@
     <form id="formSearchInput">
         <div class="row">
 
-            
 
             <div class="col-md-4">
-                <select name="category" class="form-control">
-                    <option value="0">-- Tất cả loại hàng --</option>
-                    <option value="1">Beverages</option>
-                    <option value="2">Condiments</option>
-                </select>
+                @Html.DropDownListFor(m => m.CategoryID, SelectListHelpers.Categories(), "-- Tất cả loại hàng --", new { @class = "form-control" })
             </div>
 
             <div class="col-md-4">
-                <select name="supplier" class="form-control">
-                    <option value="0">-- Tất cả nhà cung cấp --</option>
-                    <option value="1">Exotic Liquid</option>
-                    <option value="2">New Orleans Cajun Delights</option>
-                    <option value="3">Grandma Kelly's Homestead</option>
-                </select>
+                @Html.DropDownListFor(m => m.SupplierID, SelectListHelpers.Supplers(), "-- Tất cả nhà cung cấp --", new { @class = "form-control" })
             </div>
 
             <div class="col-md-4">
@@ -46,13 +37,11 @@
 </div>
 
 
-
-@section Scripts {
+@section scripts{
     <script>
-
         function getProducts(page) {
             var searchCondition = $("#formSearchInput").serializeArray();
-            searchCondition.push({ name: "page", value: page });
+            searchCondition.push({ name: "page", value: page })
             $.ajax({
                 url: "/Product/List",
                 type: "POST",
@@ -63,17 +52,13 @@
                 }
             });
         }
-
         $(document).ready(function () {
             getProducts(1);
-
             $("#formSearchInput").submit(function (e) {
-                e.preventDefault();
+                e.preventDefault(); // khi an submit. thi trang khong reload. day la loi ich khi dung ajax
                 getProducts(1);
             });
         });
-
     </script>
-
 }
 

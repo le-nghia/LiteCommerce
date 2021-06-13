@@ -20,7 +20,7 @@ namespace LiteCommerce.BusinessLayers
         private static ICategoriDAL CategoriDB;
         private static IEmployeeDAL EmployeeDB;
         private static ICustomerDAL CustomerDB;
-        
+        private static IOrderDAL OrderDB;
         private static IShipperDAL ShipperDB;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace LiteCommerce.BusinessLayers
                     SupplierDB = new DataLayers.SQLServer.SupplierDAL(connectionString);
                     CategoriDB = new DataLayers.SQLServer.CategoriDAL(connectionString);
                     CustomerDB = new DataLayers.SQLServer.CustomerDAL(connectionString);
-                   
+                    OrderDB = new DataLayers.SQLServer.OrderDAL(connectionString);
                     ShipperDB = new DataLayers.SQLServer.ShipperDAL(connectionString);
 
                     break;
@@ -87,6 +87,14 @@ namespace LiteCommerce.BusinessLayers
         {
             rowCount = SupplierDB.Count(searchValue);
             return SupplierDB.List(page, pageSize, searchValue);
+        }
+        /// <summary>
+        /// Lay ten loai hang
+        /// </summary>
+        /// <returns></returns>
+        public static List<Supplier> ListNameSuppliers()
+        {
+            return SupplierDB.ListOfNameSuppliers();
         }
         /// <summary>
         /// Bổ sung 1 nhà cung cấp.
@@ -137,9 +145,13 @@ namespace LiteCommerce.BusinessLayers
             rowCount = CategoriDB.Count(searchValue);
             return CategoriDB.List(page, pageSize, searchValue);
         }
-        public static List<Categori> ListCategoryes()
+        /// <summary>
+        /// Lay ten loai hang
+        /// </summary>
+        /// <returns></returns>
+        public static List<Categori> ListNameCategoryes()
         {
-            return CategoriDB.List();
+            return CategoriDB.listOfNameCategorys();
         }
         /// <summary>
         /// Xoa mot loai hang.
@@ -326,6 +338,28 @@ namespace LiteCommerce.BusinessLayers
         public static int AddShippers(Shipper data)
         {
             return ShipperDB.Add(data);
+        }
+
+        public static List<Order> ListOrders(int page, int pageSize, int customerID, string searchValue, out int rowCount)
+        {
+            rowCount = OrderDB.Count(searchValue);
+            return OrderDB.List(page, pageSize, customerID, searchValue);
+        }
+        public static Order GetOrder(int orderID)
+        {
+            return OrderDB.Get(orderID);
+        }
+        public static int AddOrder(Order data)
+        {
+            return OrderDB.Add(data);
+        }
+        public static bool Update(Order data)
+        {
+            return OrderDB.Update(data);
+        }
+        public static bool Delete(int orderID)
+        {
+            return OrderDB.Delete(orderID);
         }
     }
 }

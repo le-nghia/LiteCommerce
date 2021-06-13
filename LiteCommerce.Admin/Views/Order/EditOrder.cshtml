@@ -1,0 +1,76 @@
+﻿@model LiteCommerce.DomainModels.Order
+
+<form method="post" action="~/Order/Save">
+
+    
+    @Html.HiddenFor(m => m.OrderID)
+
+    <div class="form-group">
+        <label>Mã KH:</label>
+        @Html.TextBoxFor(m => m.CustomerID, new { @class = "form-control", @autofocus = "autofocus" })
+        
+    </div>
+    <div class="form-group">
+        <label>Thời gian đặt hàng:</label>
+        @Html.TextBoxFor(m => m.OrderTime, new { @class = "form-control" })
+        
+
+    </div>
+    <div class="form-group">
+        <label>Mã Nhân Viên:</label>
+        @Html.TextBoxFor(m => m.EmployeeID, new { @class = "form-control" })
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Thời gian nhận đơn hàng:</label>
+                @Html.TextBoxFor(m => m.AcceptTime, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Mã vận chuyển: </label>
+                @Html.TextBoxFor(m => m.ShipperID, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Thời gian vận chuyển:</label>
+                @Html.TextBoxFor(m => m.ShippedTime, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Thời gian kết thúc:</label>
+                @Html.TextBoxFor(m => m.FinishedTime, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Trang thái:</label>
+                @Html.TextBoxFor(m => m.Status, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Lưu dữ liệu
+            </button>
+
+            <a href="~/Order/Index" class="btn btn-warning">
+                <i class="fa fa-window-close"></i> Bỏ qua
+            </a>
+        </div>
+    </div>
+</form>

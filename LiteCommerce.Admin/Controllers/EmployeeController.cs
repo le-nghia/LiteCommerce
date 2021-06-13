@@ -118,7 +118,7 @@ namespace LiteCommerce.Admin.Controllers
                 if (string.IsNullOrWhiteSpace(data.Email))
                     ModelState.AddModelError("c", "Vui lòng nhập email nhân viên");
                 if (string.IsNullOrWhiteSpace(data.Password))
-                    data.Password = "";
+                    ModelState.AddModelError("d", "Vui lòng nhập mật khẩu.");
                 if (string.IsNullOrEmpty(data.Notes))
                     data.Notes = "";
 

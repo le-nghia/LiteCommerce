@@ -1,9 +1,6 @@
 ﻿@model LiteCommerce.DomainModels.Product
-@{
-    ViewBag.Title = "Bổ sung mặt hàng";
-}
 
-<form method="post" action="~/Product/Save">
+<form method="post" action="~/Product/Save" >
     <div class="row">
 
         <div class="col-md-3">
@@ -36,18 +33,19 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="from-group">
-                <label>Mã hàng: </label>
-                @Html.TextBoxFor(m => m.CategoryID, new { @class = "form-control" })
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Loại hàng:</label>
+                @Html.DropDownListFor(m => m.CategoryID, SelectListHelpers.Categories(), new { @class = "form-control" })
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="from-group">
-                <label>Mã nhà cung cấp: </label>
-                @Html.TextBoxFor(m => m.SupplierID, new { @class = "form-control" })
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Nhà cung cấp:</label>
+                @Html.DropDownListFor(m => m.SupplierID, SelectListHelpers.Supplers(), new { @class = "form-control" })
             </div>
         </div>
+
     </div>
 
     <br />

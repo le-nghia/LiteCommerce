@@ -108,12 +108,12 @@ namespace LiteCommerce.DataLayers.SQLServer
 
             return result;           
         }
-            /// <summary>
+        /// <summary>
             /// 
             /// </summary>
             /// <param name="categoryID"></param>
             /// <returns></returns>
-            public Categori Get(int categoryID)
+        public Categori Get(int categoryID)
         {
             Categori data = null;
             using(SqlConnection cn = GetConnection())
@@ -157,7 +157,7 @@ namespace LiteCommerce.DataLayers.SQLServer
 
             using (SqlConnection cn = GetConnection())
             {
-                SqlCommand cmd = new SqlCommand();
+                SqlCommand cmd = cn.CreateCommand();
 
                 cmd.CommandText = @"select * from (
 	                                select *, ROW_NUMBER() OVER (ORDER BY CategoryName) AS RowNumber
@@ -194,13 +194,13 @@ namespace LiteCommerce.DataLayers.SQLServer
             return data;
         }
 
-        public List<Categori> List()
+        public List<Categori> listOfNameCategorys()
         {
             List<Categori> data = new List<Categori>();
             using (SqlConnection cn = GetConnection())
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT CategoryName FROM Categories";
+                SqlCommand cmd = cn.CreateCommand();
+                cmd.CommandText = @"SELECT CategoryID, CategoryName FROM Categories";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = cn;
 
@@ -210,6 +210,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                     {
                         data.Add(new Categori()
                         {
+                            CategoryID = Convert.ToInt32(dbReader["CategoryID"]),
                             CategoryName = Convert.ToString(dbReader["CategoryName"])
                         });
                     }

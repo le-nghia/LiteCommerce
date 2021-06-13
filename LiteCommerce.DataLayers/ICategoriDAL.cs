@@ -54,6 +54,6 @@ namespace LiteCommerce.DataLayers
         /// Lấy Tên Hàng.
         /// </summary>
         /// <returns></returns>
-        List<Categori> List();
+        List<Categori> listOfNameCategorys();
     }
 }
